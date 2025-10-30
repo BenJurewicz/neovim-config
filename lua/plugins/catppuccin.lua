@@ -32,5 +32,11 @@ return {
         subtext0 = "#a6adc8",
       },
     },
+    custom_highlights = function(colors)
+      return {
+        -- Used in noice.lua for makinng the Lsp Hover(Normal mode: Shift+K) have a background.
+        LspHoverNormal = { bg = colors.mantle },
+      }
+    end,
   },
 }
