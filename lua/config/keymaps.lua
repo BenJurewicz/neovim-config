@@ -11,3 +11,11 @@ map("i", "<D-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 map("i", "<D-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<D-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
 map("v", "<D-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+
+-- Snacks Explorer in centered view
+map("n", "<leader>E", function()
+  Snacks.picker.explorer({
+    auto_close = true,
+    layout = { preset = "default", preview = true },
+  })
+end, { desc = "Explorer (centered)" })
