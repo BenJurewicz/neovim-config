@@ -14,6 +14,8 @@ map("i", "<D-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<D-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
 map("v", "<D-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
+map("n", "<leader>bf", ":only<cr>", { desc = "Fullscreen a buffer" })
+
 -- Snacks Explorer in centered view
 map("n", "<leader>E", function()
   Snacks.picker.explorer({
