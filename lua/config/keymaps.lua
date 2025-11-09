@@ -6,6 +6,11 @@ require("config.mac_key_remaps")
 
 local map = vim.keymap.set
 
+map("i", "jj", "<ESC>")
+map("i", "jk", "<ESC>")
+map("i", "kj", "<ESC>")
+map("i", "kk", "<ESC>")
+
 -- Move Lines
 map("n", "<D-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
 map("n", "<D-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
