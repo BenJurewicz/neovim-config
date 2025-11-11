@@ -2,16 +2,16 @@
 
 -- Only load on macOS
 if vim.fn.has("mac") == 0 and vim.fn.has("macunix") == 0 then
-  return
+    return
 end
 
 -- Map special characters to Alt/Option key combinations
 local function map_meta(char, key)
-  vim.keymap.set({ "i", "n", "v", "o" }, char, "<M-" .. key .. ">", { remap = true })
+    vim.keymap.set({ "i", "n", "v", "o" }, char, "<M-" .. key .. ">", { remap = true })
 end
 
 local function map_meta_shift(char, key)
-  vim.keymap.set({ "i", "n", "v", "o" }, char, "<M-S-" .. key .. ">", { remap = true })
+    vim.keymap.set({ "i", "n", "v", "o" }, char, "<M-S-" .. key .. ">", { remap = true })
 end
 
 map_meta("Ō", "q")
