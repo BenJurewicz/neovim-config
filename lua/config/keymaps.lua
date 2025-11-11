@@ -23,8 +23,8 @@ map("n", "<leader>bf", ":only<cr>", { desc = "Fullscreen a buffer" })
 
 -- Snacks Explorer in centered view
 map("n", "<leader>E", function()
-  Snacks.picker.explorer({
-    auto_close = true,
-    layout = { preset = "default", preview = true },
-  })
+    Snacks.picker.explorer({
+        auto_close = true,
+        layout = { preset = "default", preview = true },
+    })
 end, { desc = "Explorer (centered)" })
