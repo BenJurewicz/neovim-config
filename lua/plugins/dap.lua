@@ -1,6 +1,7 @@
 return {
     {
         "mfussenegger/nvim-dap",
+        lazy = true,
         keys = {
             { "<leader>dw", false },
             { "<leader>dO", false },

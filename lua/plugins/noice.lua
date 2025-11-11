@@ -1,6 +1,7 @@
 return {
     {
         "folke/noice.nvim",
+        lazy = true,
         opts = {
             presets = {
                 lsp_doc_border = true,
