@@ -20,6 +20,7 @@ map("v", "<D-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc 
 map("v", "<D-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
 map("n", "<leader>bf", ":only<cr>", { desc = "Fullscreen a buffer" })
+map("n", "<leader>by", ":%y<cr>", { desc = "Yank the whole buffer" })
 
 -- Snacks Explorer in centered view
 map("n", "<leader>E", function()
