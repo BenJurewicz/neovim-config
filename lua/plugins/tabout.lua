@@ -1,6 +1,7 @@
 return {
     {
         "abecodes/tabout.nvim",
+        enabled = false, -- NOTE: Replaced this with neotab
         lazy = true,
         config = function()
             require("tabout").setup({
