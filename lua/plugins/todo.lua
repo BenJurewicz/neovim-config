@@ -11,7 +11,7 @@ return {
                     keywords = { "TODO", "FIX", "FIXME", "BUG", "FIXIT", "ISSUE", "WARN", "WARNING" },
                 })
             end,
-            desc = "Awoo Todo/Fix/Fixme",
+            desc = "Todo/Fix/Fixme",
         },
         {
             "<leader>xT",
