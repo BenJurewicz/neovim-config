@@ -19,6 +19,11 @@ map("i", "<D-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<D-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
 map("v", "<D-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
+-- Fix for Cmd+k sending ^L (Ctrl-L) in some terminals (Alacritty)
+map("n", "<C-l>", "<D-k>", { remap = true, desc = "Move Up" })
+map("i", "<C-l>", "<D-k>", { remap = true, desc = "Move Up" })
+map("v", "<C-l>", "<D-k>", { remap = true, desc = "Move Up" })
+
 map("n", "<leader>bf", ":only<cr>", { desc = "Fullscreen a buffer" })
 map("n", "<leader>by", ":%y<cr>", { desc = "Yank the whole buffer" })
 
