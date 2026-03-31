@@ -27,6 +27,14 @@ map("v", "<C-l>", "<D-k>", { remap = true, desc = "Move Up" })
 map("n", "<leader>bf", ":only<cr>", { desc = "Fullscreen a buffer" })
 map("n", "<leader>by", ":%y<cr>", { desc = "Yank the whole buffer" })
 
+map("n", "<leader>ff", function()
+    Snacks.picker.files()
+end, { desc = "Find Files (cwd)" })
+
+map("n", "<leader>fF", function()
+    Snacks.picker.files({ cwd = LazyVim.root()  })
+end, { desc = "Find Files (root dir)" })
+
 -- Snacks Explorer in centered view
 map("n", "<leader>e", function()
     Snacks.picker.explorer({
