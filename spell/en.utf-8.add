@@ -73,3 +73,11 @@ dir
 Wireshark
 max3421e
 usb
+RWUP
+grvl
+UHC
+Kconfig
+subsys
+USBH
+module
+config
