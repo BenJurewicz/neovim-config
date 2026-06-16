@@ -16,6 +16,9 @@ MD007: false
 # Lists should be surrounded by blank lines
 MD032: false
 
+# First line should be a h1
+MD041: false
+
 # Line length
 MD013:
   # Set the maximum allowed line length
