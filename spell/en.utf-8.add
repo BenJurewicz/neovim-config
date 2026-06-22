@@ -81,3 +81,8 @@ subsys
 USBH
 module
 config
+PID
+IRP
+MAX3421E
+SPI
+DATA1
