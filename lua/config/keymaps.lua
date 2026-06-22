@@ -28,6 +28,10 @@ map("v", "<D-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 map("n", "<leader>bf", ":only<cr>", { desc = "Fullscreen a buffer" })
 map("n", "<leader>by", ":%y<cr>", { desc = "Yank the whole buffer" })
 
+map("x", "<leader>\\", function()
+    require("config.macro_continuation").fix_visual(vim.v.count)
+end, { desc = "Fix Macro Continuations" })
+
 map("n", "<leader>ff", function()
     Snacks.picker.files()
 end, { desc = "Find Files (cwd)" })
