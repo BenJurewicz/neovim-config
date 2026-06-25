@@ -35,6 +35,37 @@ map("x", "<leader>\\", function()
     macro_continuation.fix_visual(vim.v.count)
 end, { desc = "Fix Macro Continuations" })
 
+local function set_clang_format_keymap(buf)
+    map("x", "<leader>cf", function()
+        local first_line = vim.fn.line("v")
+        local last_line = vim.fn.line(".")
+        if first_line > last_line then
+            first_line, last_line = last_line, first_line
+        end
+
+        require("conform").format({
+            bufnr = buf,
+            formatters = { "clang-format" },
+            lsp_format = "never",
+            range = {
+                start = { first_line, 0 },
+                ["end"] = { last_line, #vim.api.nvim_buf_get_lines(buf, last_line - 1, last_line, false)[1] },
+            },
+        })
+    end, { buffer = buf, desc = "Clang Format Selection" })
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "c", "cpp" },
+    callback = function(event)
+        set_clang_format_keymap(event.buf)
+    end,
+})
+
+if vim.tbl_contains({ "c", "cpp" }, vim.bo.filetype) then
+    set_clang_format_keymap(0)
+end
+
 map("n", "<leader>ff", function()
     Snacks.picker.files()
 end, { desc = "Find Files (cwd)" })
