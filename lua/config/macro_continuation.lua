@@ -1,5 +1,8 @@
 local M = {}
 
+local pending_column
+local waiting_for_macro_key = false
+
 local function strip_continuation(line)
     return (line:gsub("%s*\\%s*$", ""))
 end
@@ -16,6 +19,35 @@ local function continuation_column(lines)
     end
 
     return column
+end
+
+function M.setup_count_capture()
+    local namespace = vim.api.nvim_create_namespace("macro_continuation_count")
+
+    vim.on_key(function(key)
+        local mode = vim.fn.mode()
+        if mode ~= "v" and mode ~= "V" and mode ~= "\22" then
+            pending_column = nil
+            waiting_for_macro_key = false
+            return
+        end
+
+        if waiting_for_macro_key then
+            if key ~= "\\" then
+                pending_column = nil
+            end
+            waiting_for_macro_key = false
+            return
+        end
+
+        -- which-key replaces <leader> with an internal trigger key while
+        -- v:count still contains the user's prefix. Capture it at that point,
+        -- before which-key replays the completed Visual-mode mapping.
+        if vim.v.count > 0 and not key:match("^%d$") then
+            pending_column = vim.v.count
+            waiting_for_macro_key = true
+        end
+    end, namespace)
 end
 
 function M.fix_range(first_line, last_line, column)
@@ -53,6 +85,12 @@ function M.fix_range(first_line, last_line, column)
 end
 
 function M.fix_visual(column)
+    if not column or column <= 0 then
+        column = pending_column
+    end
+    pending_column = nil
+    waiting_for_macro_key = false
+
     local mode = vim.fn.mode()
     local first_line
     local last_line
