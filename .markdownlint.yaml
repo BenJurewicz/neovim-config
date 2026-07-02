@@ -22,6 +22,9 @@ MD041: false
 # No trailing punctuation in headings
 MD026: false
 
+# Max line length
+MD013: false
+
 # Line length
 MD013:
   # Set the maximum allowed line length
