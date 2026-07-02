@@ -19,6 +19,9 @@ MD032: false
 # First line should be a h1
 MD041: false
 
+# No trailing punctuation in headings
+MD026: false
+
 # Line length
 MD013:
   # Set the maximum allowed line length
