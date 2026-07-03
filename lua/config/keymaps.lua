@@ -11,6 +11,8 @@ map("i", "jk", "<ESC>")
 map("i", "kj", "<ESC>")
 map("i", "kk", "<ESC>")
 
+map("i", "<C-g><Tab>", "<Tab>", { desc = "Insert Tab" })
+
 -- Move Lines
 map("n", "<D-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
 map("n", "<D-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
