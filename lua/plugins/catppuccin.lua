@@ -35,12 +35,29 @@ return {
         },
         custom_highlights = function(colors)
             local color_utils = require("catppuccin.utils.colors")
-            local terminfo = vim.system({ "infocmp", "-x", "-1", vim.env.TERM or "" }, { text = true }):wait()
-            local supports_undercurl = terminfo.code == 0 and terminfo.stdout:find("Smulx=", 1, true) ~= nil
+
+            local function supports_undercurl()
+                if vim.env.ALACRITTY_WINDOW_ID or vim.env.ALACRITTY_SOCKET then
+                    return false
+                end
+
+                local term = vim.env.TERM or ""
+                if term == "" then
+                    return false
+                end
+
+                local ok, terminfo = pcall(function()
+                    return vim.system({ "infocmp", "-x", "-1", term }, { text = true }):wait()
+                end)
+
+                return ok and terminfo.code == 0 and terminfo.stdout:find("Smulx=", 1, true) ~= nil
+            end
+
+            local has_undercurl = supports_undercurl()
 
             local function spell_highlight(color)
                 return {
-                    bg = not supports_undercurl and color_utils.blend(color, colors.base, 0.16) or nil,
+                    bg = not has_undercurl and color_utils.blend(color, colors.base, 0.16) or nil,
                     sp = color,
                     undercurl = true,
                 }
@@ -50,7 +67,7 @@ return {
                 -- Used in noice.lua for makinng the Lsp Hover(Normal mode: Shift+K) have a background.
                 LspHoverNormal = { bg = colors.mantle },
 
-                -- Keep spell-check marks visible in terminals that do not render undercurls.
+                -- Keep spell-check marks visible when undercurls are unavailable.
                 SpellBad = spell_highlight(colors.red),
                 SpellCap = spell_highlight(colors.yellow),
                 SpellLocal = spell_highlight(colors.blue),
