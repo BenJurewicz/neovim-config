@@ -1,6 +1,27 @@
 return {
   {
     "lewis6991/gitsigns.nvim",
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "gitsigns-blame",
+        callback = function(event)
+          -- Gitsigns sets nowrap after assigning the filetype, so apply these
+          -- once its blame-window setup has finished.
+          vim.schedule(function()
+            if not vim.api.nvim_buf_is_valid(event.buf) then
+              return
+            end
+
+            for _, win in ipairs(vim.fn.win_findbuf(event.buf)) do
+              vim.wo[win].wrap = true
+              vim.wo[win].linebreak = true
+              vim.wo[win].breakindent = true
+              vim.wo[win].breakindentopt = "column:2"
+            end
+          end)
+        end,
+      })
+    end,
     keys = {
       {
         "<leader>ga",
