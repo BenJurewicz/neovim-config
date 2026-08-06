@@ -1,11 +1,55 @@
+local function close_scratch_windows()
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if vim.w[win].snacks_scratch then
+            pcall(vim.api.nvim_win_close, win, false)
+        end
+    end
+end
+
 return {
     "folke/snacks.nvim",
+    keys = {
+        {
+            "<leader>ff",
+            function()
+                close_scratch_windows()
+                Snacks.picker.files()
+            end,
+            desc = "Find Files (cwd)",
+        },
+        {
+            "<leader>fF",
+            function()
+                close_scratch_windows()
+                Snacks.picker.files({ cwd = LazyVim.root() })
+            end,
+            desc = "Find Files (root dir)",
+        },
+        {
+            "<leader>fe",
+            function()
+                close_scratch_windows()
+                Snacks.explorer({
+                    cwd = LazyVim.root(),
+                    auto_close = true,
+                    layout = { preset = "default", preview = true },
+                })
+            end,
+            desc = "Explorer Snacks (root dir)",
+        },
+        { "<leader>e", "<leader>fe", desc = "Explorer Snacks (root dir)", remap = true },
+    },
     opts = {
         scratch = {
             win = {
                 width = 0,
-                height = 0,
+                height = function()
+                    local statusline = vim.o.laststatus == 0 and 0 or 1
+                    return vim.o.lines - vim.o.cmdheight - statusline
+                end,
+                row = 0,
                 border = false,
+                w = { snacks_scratch = true },
             },
         },
         zen = {
